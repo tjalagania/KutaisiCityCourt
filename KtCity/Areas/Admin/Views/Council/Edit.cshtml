@@ -1,0 +1,32 @@
+﻿@model Palats
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="mainContainer_content-addPosition">
+    <h3>კოლეგიის რედაქტრება</h3>
+    <div class="mainContainer_content-addPosition-input">
+        <form method="post" asp-action="Edit">
+            <div asp-validation-summary="ModelOnly"></div>
+            <input type="hidden" asp-for="id" />
+            <div class="form-group">
+                <input type="text" asp-for="Name" />
+                <span asp-validation-for="Name"></span>
+            </div>
+            <div style="margin-right:0.3rem">
+                <label for="rang"
+                       style="
+                         font-size:0.5rem;
+
+                        ">რანგი</label>
+                <input id="rang" type="number"
+                       asp-for="Rang" />
+                <span asp-validation-for="Rang"></span>
+            </div>
+            <input type="submit" value="დამატება" />
+
+
+        </form>
+    </div>
+

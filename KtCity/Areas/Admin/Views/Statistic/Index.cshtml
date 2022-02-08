@@ -1,0 +1,46 @@
+﻿@model Statistic
+@{
+
+}
+<div class="mainContainer_content-header">
+    <h3>სტატისტიკის რედაქტირება</h3>
+</div>
+<div class="mainContainer_content-newsContainer" style="padding-bottom:4rem;">
+    <form id="newsForm"
+          asp-action="Create"
+          method="post" >
+        <div asp-validation-summary="ModelOnly"></div>
+
+        <input type="hidden" asp-for="id" />
+        <div class="form-group">
+            <label>@Html.DisplayNameFor(m => m.StaticText)</label>
+            <br>
+            <textarea id="editor" asp-for="StaticText"></textarea>
+            <div>
+                <span asp-validation-for="StaticText" style="color: #d9534f"></span>
+            </div>
+
+        </div>
+       
+        <div class="form-group">
+            <input type="submit" value="დამატება" />
+        </div>
+    </form>
+</div>
+
+<script src="/js/ckeditor/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace("editor")
+    let form = document.getElementById("newsform");
+    form.addEventListener("submit", e => {
+        let inst = CKEDITOR.instances.editor;
+        form.innerHTML = inst.getData();
+    })
+</script>
+
+
+
+
+
+
+

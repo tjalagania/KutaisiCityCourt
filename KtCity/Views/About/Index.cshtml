@@ -1,0 +1,206 @@
+﻿@model MainAboutViewModel
+@{
+    ViewData["Title"] = "ჩვენ შესახებ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+
+    //Dictionary<string, string> classes = new Dictionary<string, string>();
+    //classes.Add("address", "fas fa-location-arrow");
+    //classes.Add("phone", "fas fa-phone-volume");
+    //classes.Add("email", "fas fa-at");
+    //classes.Add("struct", "far fa-building");
+    //classes.Add("pdflinks", "fas fa-book");
+
+
+}
+<div class="pdfs" id="pdfs">
+    <button class="clozebtn" id="closeLink">X</button>
+    <ul class="pdfs-list">
+        @if (Model.Files.Count > 0)
+        {
+            foreach (var f in Model.Files)
+            {
+                <li>
+                    <i class="fas fa-file-pdf"></i><a href="/@($"{ConfigClass.FileFolder}/{f.FileName}")"
+                                                      target="_blank">@f.Anotation</a>
+                                                </li>
+                                            }
+                                        }
+
+    </ul>
+</div>
+<div class="ktcityStructure" id="structPanel"
+     >
+    <button class="clozebtn" id="closeBtn">X</button>
+    @if (Model.Struct != null)
+        @Html.Raw(Model.Struct.StaticText)
+        else
+        {
+            <strong>ინფორმაცია არაა</strong>
+        }
+
+    @*<ul class="ktcityStructure-list">
+            <li class="ktcityStructure-list-item title">
+                <h5>სასამართლოს თავმჯდომარე</h5>
+            </li>
+            <li class="ktcityStructure-list-item title">
+                <h5>მოსამართლეები</h5>
+            </li>
+            <li class="ktcityStructure-list-item">
+                სისხლის სამართლის საქმეთა პალატა
+            </li>
+            <li class="ktcityStructure-list-item">
+                სამოქალაქო საქმეთა პალატა
+            </li>
+            <li class="ktcityStructure-list-item">
+                ადმინსტრაციულ საქმეთა პალატა
+            </li>
+            <li class="ktcityStructure-list-item title">
+                <h5>სასამართლოს აპარატი (საჯარო მოხელეები)</h5>
+            </li>
+            <li class="ktcityStructure-list-item">
+                სასამართლოს მენეჯერი
+            </li>
+            <li class="ktcityStructure-list-item title">
+                <h5>საკადრო და საორგანიზაციო საკითხთა განყოფილება</h5>
+            </li>
+            <li class="ktcityStructure-list-item">
+                მოსამართლის თანაშემწე
+            </li>
+            <li class="ktcityStructure-list-item">
+                სხდომის მდივანი
+            </li>
+            <li class="ktcityStructure-list-item">
+                სასამართლოს თავმჯდომარის პირადი მდივანი
+            </li>
+            <li class="ktcityStructure-list-item">
+                სპეციალისტი (სამეურნეო საკითხებში)
+            </li>
+            <li class="ktcityStructure-list-item">
+                ქსელის ადმინისტრატორი
+            </li>
+            <li class="ktcityStructure-list-item">
+                დამხმარე მოსამსახურე (მძღოლი)
+            </li>
+            <li class="ktcityStructure-list-item title">
+                <h5>კანცელარია და მოქალაქეთა მისაღები (განყოფილება)</h5>
+            </li>
+            <li class="ktcityStructure-list-item">
+                განყოფილების უფროსი
+            </li>
+            <li class="ktcityStructure-list-item">
+                წამყვანი სპეციალისტი
+            </li>
+            <li class="ktcityStructure-list-item">
+                სპეციალისტი
+            </li>
+            <li class="ktcityStructure-list-item">
+                კურიერი
+            </li>
+            <li class="ktcityStructure-list-item title">
+                <h5>მანდატურის სამსახური</h5>
+            </li>
+            <li class="ktcityStructure-list-item">
+                სამსახურის უფროსი
+            </li>
+            <li class="ktcityStructure-list-item">
+                მანდატური
+            </li>
+            <li class="ktcityStructure-list-item title">
+                <h5>მაგისტრატი მოსამართლის აპარატი</h5>
+            </li>
+            <li class="ktcityStructure-list-item">
+                სხდომის მდივანი
+            </li>
+            <li class="ktcityStructure-list-item">
+                სპეციალისტი
+            </li>
+            <li class="ktcityStructure-list-item">
+                მანდატური
+            </li>
+            <li class="ktcityStructure-list-item">
+                დამხმარე მოსამსახურე (სამეურნეო საკითხებში)
+            </li>
+            <li class="ktcityStructure-list-item">
+                დამხმარე მოსამსახურე (დამლაგებელი)
+            </li>
+        </ul>*@
+</div>
+@foreach (About item in Model.Abouts)
+{
+    <div class="mainContainer shadows">
+        <div class="container">
+            <div class="ebout_city">
+                <h3 class="ebout_city-title">@item.Name</h3>
+                <div class="ebout_city-cover">
+                    <div class="ebout_city-cover-img">
+                        <img src="/img/@(item.Image??ConfigClass.NoImage)" />
+                    </div>
+                    <ul class="ebout_city-cover-list">
+                        <li class="ebout_city-cover-list-item">
+                            <i class="fas fa-location-arrow"></i>
+                            <span>@item.Address</span>
+                        </li>
+                        @if (!string.IsNullOrEmpty(item.RekviziteStrng))
+                        {
+                            var rek = item.RekviziteStrng.Split(';');
+                            foreach (var ph in rek)
+                            {
+                                if (!string.IsNullOrEmpty(ph))
+                                {
+                                    <li class="ebout_city-cover-list-item">
+                                        <i class="fas fa-phone-volume"></i>
+                                        <span>@ph</span>
+                                    </li>
+                                }
+
+                            }
+                        }
+                        @if (!string.IsNullOrEmpty(item.EmailString))
+                        {
+                            var emails = item.EmailString.Split(';');
+
+                            foreach (var email in emails)
+                            {
+                                if (!string.IsNullOrEmpty(email))
+                                {
+                                    <li class="ebout_city-cover-list-item">
+                                        <i class="fas fa-at"></i>
+                                        <a href="mailto:@email">@email</a>
+                                    </li>
+                                }
+
+                            }
+
+
+
+                        }
+                        @if (item.Tag)
+                        {
+                            <li class="ebout_city-cover-list-item">
+                                <i class="far fa-building"></i>
+                                <a href="#" id="structLink">სასამართლოს სტრუქტურა</a>
+                            </li>
+                            <li class="ebout_city-cover-list-item">
+                                <i class="fas fa-book"></i>
+                                <a href="#" id="pdfLinks">მარეგულირებელი სამართლებრივი აქტები</a>
+                            </li>
+                        }
+
+
+                    </ul>
+
+
+                </div>
+
+                <div class="ebout_city-text">
+                    <p>
+                        @Html.Raw(item.Text)
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

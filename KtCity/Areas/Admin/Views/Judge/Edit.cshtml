@@ -1,0 +1,100 @@
+﻿@model KtCity.Models.ViewModels.JudgeViewModel
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="mainContainer_content-header">
+    <h3>მოსამართლის რედაქტირება</h3>
+</div>
+<div class="mainContainer_content-newsContainer">
+    <form asp-action="Edit" method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly"></div>
+        <input type="hidden" asp-for="Judge.id" />
+        <div class="form-group">
+            <label for="title">@Html.DisplayNameFor(m => m.Judge.FirstName)</label><br>
+            <input id="title" class="title" asp-for="Judge.FirstName" />
+            <div>
+                <span asp-validation-for="Judge.FirstName" style="color: #d9534f;"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="title">@Html.DisplayNameFor(m => m.Judge.LastName)</label><br>
+            <input id="title" class="title" asp-for="Judge.LastName" />
+            <div>
+                <span asp-validation-for="Judge.LastName" style="color: #d9534f;"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>სურათი</label>
+            <br>
+            <input type="file" name="img" />
+        </div>
+        <div class="form-group">
+            <label>კოლეგია</label>
+            <br>
+            <select name="palats" asp-for="Judge.Position.id">
+                @foreach (var item in Model.Palats)
+                {
+                    <option value="@item.id">@item.Name</option>
+                }
+
+
+            </select>
+        </div>
+        <div class="form-group">
+            <label>@Html.DisplayNameFor(m => m.Judge.Birthday)</label>
+            <br>
+            <input type="date"
+                   style="width:10rem; padding:0.2rem"
+                   asp-for="Judge.Birthday" />
+            <div>
+                <span asp-validation-for="Judge.Birthday" style="color: #d9534f;"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>@Html.DisplayNameFor(m => m.Judge.Chariman)</label>
+
+            <input type="checkbox" asp-for="Judge.Chariman" />
+
+        </div>
+        <div class="form-group">
+            <label>@Html.DisplayNameFor(m => m.Judge.Biography)</label>
+            <br>
+            <textarea id="editor" asp-for="Judge.Biography"></textarea>
+            <div>
+                <span asp-validation-for="Judge.Biography" style="color: #d9534f;"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="">აპარატი</label>
+            <br>
+            <div class="form-group_checkbox">
+                @foreach (Worker w in Model.Workers)
+                {
+                    <div>
+                        <input type="checkbox" value="@w.id" name="wrk">
+                        <label for="">@($"{w.FirstName} {w.LastName}")</label>
+                    </div>
+                }
+
+            </div>
+        </div>
+        <div class="form-group" style="margin-bottom:5rem">
+            <input type="submit" value="დამატება" />
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script src="/js/ckeditor/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace("editor")
+        let form = document.getElementById("newsform");
+        form.addEventListener("submit", e => {
+            let inst = CKEDITOR.instances.editor;
+            form.innerHTML = inst.getData();
+        })
+    </script>
+}
+

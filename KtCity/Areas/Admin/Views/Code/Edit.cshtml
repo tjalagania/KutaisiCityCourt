@@ -1,0 +1,44 @@
+﻿@model Cods
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="mainContainer_content-addPosition">
+    <h3>კოდის დამატება</h3>
+    <div class="mainContainer_content-addPosition-input">
+        <form method="post" asp-action="Edit" style="flex-direction:column;
+        align-items: flex-start;
+">
+            <div asp-validation-summary="ModelOnly"></div>
+            <input type="hidden" asp-for="id" />
+            <div class="form-group" style="margin-bottom:1rem;">
+                <label>@Html.DisplayNameFor(m => m.CodeName)</label><br />
+                <input type="text" asp-for="CodeName" />
+                <span asp-validation-for="CodeName"></span>
+            </div><br />
+            <div class="form-group" style="margin-bottom:1rem;">
+                <label>@Html.DisplayNameFor(m => m.CodeNumber)</label><br />
+                <input type="text" asp-for="CodeNumber" />
+                <span asp-validation-for="CodeNumber"></span>
+            </div><br />
+            <div style="margin:0 0.3rem 1rem 0">
+                <label for="rang"
+                       style="
+                         font-size:0.5rem;
+
+                        ">
+                    @Html.DisplayNameFor(m => m.PositionInList)
+                </label>
+                <input id="rang" type="number" asp-for="PositionInList" />
+                <span asp-validation-for="PositionInList"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="დამატება" />
+            </div>
+        </form>
+
+
+    </div>
+</div>
+

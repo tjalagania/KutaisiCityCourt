@@ -1,0 +1,78 @@
+﻿@model MainWorkerViewModel
+@{
+    ViewData["Title"] = "მოხელეები";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+
+}
+@*//@Html.Partial("_WorekrAndJudge", Model);*@
+<div class="mainContainer shadows">
+    <div class="container">
+        <div class="container_worker">
+            <div class="container_worker-item">
+                @if (Model.Manager != null)
+                {
+                    <div class="container_worker-item-worker">
+                        <img src="/img/@(Model.Manager.Image??ConfigClass.NoImage)" />
+                        <a class="container_worker-item-worker-name" asp-action="once"
+                           asp-route-id="@Model.Manager.id">
+                            <span>@($"{Model.Manager.FirstName} {Model.Manager.LastName}")</span>
+                            <br />
+                            <span class="container_worker-item-worker-anotation">@(((Worker)Model.Manager).Position.Name)</span>
+                        </a>
+                    </div>
+                }
+
+            </div>
+            <div class="container_worker-item"></div>
+            <div class="container_worker-item"></div>
+            <div class="container_worker-item"></div>
+            @*@foreach (Worker jd in Model.Workers)
+            {
+                <div class="container_worker-item">
+                    <div class="container_worker-item-worker">
+                        <img src="/img/@(jd.Image??ConfigClass.NoImage)" />
+                        <a class="container_worker-item-worker-name"
+                           asp-action="once"
+                           asp-route-id="@jd.id">
+                            <span>@($"{jd.FirstName} {jd.LastName}")</span>
+                            <br />
+                            <span class="container_worker-item-worker-anotation">@jd.Position.Name</span>
+                        </a>
+                    </div>
+                </div>
+            }*@
+
+        </div>
+    </div>
+</div>
+@foreach(var pl in Model.Persons)
+{
+     
+    <div class="mainContainer shadows" style="height:auto">
+        <div class="container">
+            <div class="container_worker" style="grid-template-rows:none">
+
+                @foreach (Worker jd in pl)
+                {
+
+                    <div class="container_worker-item">
+                        <div class="container_worker-item-worker">
+                            <img src="/img/@(jd.Image??ConfigClass.NoImage)" />
+                            <a class="container_worker-item-worker-name"
+                               asp-action="once"
+                               asp-route-id="@jd.id">
+                                <span>@($"{jd.FirstName} {jd.LastName}")</span>
+                                <br />
+                                <span class="container_worker-item-worker-anotation">@jd.Position.Name</span>
+                            </a>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+   
+}
+

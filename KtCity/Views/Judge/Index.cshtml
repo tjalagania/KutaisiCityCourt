@@ -1,0 +1,72 @@
+﻿@model MainWorkerViewModel
+@{
+    ViewData["Title"] = "მოსამართლეები";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    //int take = 0;
+    //int count = 4;
+    //int lines = (Model.Judges.Count - 4) / 6 + 1;
+}
+@Html.Partial("_WorekrAndJudge",Model)
+@*<div class="mainContainer shadows">
+    <div class="container">
+        <div class="container_worker">
+            <div class="container_worker-item">
+                <div class="container_worker-item-worker">
+                    <img src="/img/@Model.Chairman.Image" />
+                    <a class="container_worker-item-worker-name" asp-action="once"
+                       asp-route-id="@Model.Chairman.id">
+                        <span>@($"{Model.Chairman.FirstName} {Model.Chairman.LastName}")</span>
+                        <br />
+                        <span class="container_worker-item-worker-anotation">@Model.Chairman.Position.Name</span>
+                    </a>
+                </div>
+            </div>
+            <div class="container_worker-item"></div>
+            <div class="container_worker-item"></div>
+            <div class="container_worker-item"></div>
+            @foreach (Judge jd in Model.Judges.Skip(take).Take(count))
+            {
+                <div class="container_worker-item">
+                    <div class="container_worker-item-worker">
+                        <img src="/img/@jd.Image" />
+                        <a class="container_worker-item-worker-name"
+                           asp-action="once"
+                           asp-route-id="@jd.id">
+                            <span>@($"{jd.FirstName} {jd.LastName}")</span>
+                            <br />
+                            <span class="container_worker-item-worker-anotation">@jd.Position.Name</span>
+                        </a>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+@for (int i = 0; i < lines; i++)
+{
+    <div class="mainContainer shadows">
+        <div class="container">
+            <div class="container_worker">
+
+                @foreach (Judge jd in Model.Judges.Skip(take += count).Take(count *= 2))
+                {
+                    <div class="container_worker-item">
+                        <div class="container_worker-item-worker">
+                            <img src="/img/@(jd.Image??ConfigClass.NoImage)" />
+                            <a class="container_worker-item-worker-name"
+                               asp-action="once"
+                               asp-route-id="@jd.id">
+                                <span>@($"{jd.FirstName} {jd.LastName}")</span>
+                                <br />
+                                <span class="container_worker-item-worker-anotation">@jd.Position.Name</span>
+                            </a>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+}*@
+

@@ -1,0 +1,112 @@
+﻿@model Galery
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="mainContainer_content-addPosition">
+    <img style="width:20%"
+         src="@($"/Galery/{Model.Cover}"??$"/img/{ConfigClass.NoImage}")" />
+    <h3>@Model.Name</h3>
+    <div class="mainContainer_content-addPosition-input">
+        <form method="post"
+              style="display:flex;
+                    flex-direction:column;
+                    justify-content:flex-start;
+                    align-items:flex-start"
+              asp-action="Edit" enctype="multipart/form-data">
+
+            <input type="hidden" asp-for="id" />
+            <div class="form-group" style="margin-bottom:0.6rem">
+                <label>დასახელება</label>
+                <input type="text" asp-for="Name" />
+                <span asp-validation-for="Name"></span>
+            </div>
+            <div class="form-group" style="margin-bottom:0.6rem">
+                <label>ქოვერი</label>
+                <input type="file" name="cover" />
+            </div>
+
+            <div class="form-group" style="margin-bottom:0.6rem">
+                <label>სურათების მიტვრითვა</label>
+                <input type="file" name="imgs" multiple />
+            </div>
+
+            <input type="submit" value="მიტვრითვა" />
+
+
+        </form>
+
+
+    </div>
+</div>
+<div class="mainContainer_content-tablediv">
+    <table class="table" style="width:100%;">
+        <thead class="table-head">
+            <tr class="table-head-tr">
+                <td class="table-head-tr-td sizing">დასახელება</td>
+
+
+                <td class="table-head-tr-td sizing">წაშლა</td>
+            </tr>
+        </thead>
+        <tbody class="table-body">
+            @if (Model.Images.Count > 0)
+            {
+                @foreach (var item in Model.Images)
+                {
+                    <tr class="table-body-tr">
+                        <td class="table-body-tr-td sizing">
+                            <img src="/Galery/@item.ImgName" style="width: 10%;" />
+                        </td>
+
+                        <td class="table-body-tr-td sizing ">
+                            <a class="delGaleryImage" data-id="@item.id">
+                                <i class="far _coursor fa-trash-alt "></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr class="table-body-tr">
+                    <td class="table-body-tr-td sizing">ბაზები ცარიელია</td>
+                    <td class="table-body-tr-td sizing"></td>
+                    <td class="table-body-tr-td sizing ">
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            var dlpst = $(".delGaleryImage");
+            dlpst.each((i, el) => {
+                $(el).click((e) => {
+                    let id = $(el).data("id");
+                    if (confirm("ნამდივლად გსურთ წაშლა?")) {
+                        $.ajax({
+                            url: "/api/galery/deleteimg",
+                            method: "DELETE",
+                            dataType: "json",
+                            data: { id: id },
+                            success: function (data) {
+                                location.reload();
+                            },
+                            error: function (data) {
+                                alert(data.statusText)
+                            }
+                        })
+                    }
+
+                })
+            })
+        })
+    </script>
+
+}
+

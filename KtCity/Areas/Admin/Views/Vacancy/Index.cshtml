@@ -1,0 +1,108 @@
+﻿@model List<Vacancy>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div>
+    <h2>სიახლეების ცხრილი</h2>
+</div>
+<table class="mainContainer_content-table">
+    <thead class="thead">
+        <tr class="thead-tr">
+            <td class="thead-tr-td">
+                სურათი
+            </td>
+            <td class="thead-tr-td">
+                სათაური
+            </td>
+            <td class="thead-tr-td">
+                რედაქტირება
+            </td>
+            <td class="thead-tr-td">
+                წაშლა
+            </td>
+        </tr>
+    </thead>
+    <tbody class="tbody">
+        @if (Model.Count > 0)
+        {
+            @foreach (var item in Model)
+            {
+                <tr class="tbody-tr">
+                    <td class="tbody-tr-td">
+                        <img src="/img/@(item.Image??ConfigClass.NoImage)" alt="">
+                    </td>
+                    <td class="tbody-tr-td">
+                        @item.Title
+                    </td>
+                    <td class="tbody-tr-td">
+                        <a 
+                           asp-action="Edit"
+                           asp-route-id="@item.id">
+                            <i class="far _coursor  fa-edit" data-id="1"></i>
+                        </a>
+                    </td>
+                    <td class="tbody-tr-td ">
+                        <a class="dltnews" data-id="@item.id">
+                            <i class="far _coursor fa-trash-alt" data-id="1"></i>
+                        </a>
+
+                    </td>
+                </tr>
+            }
+
+        }
+        else
+        {
+            <tr>
+                <td></td>
+                <td>
+                    ბაზები ცარიელია
+                </td>
+                <td></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<paging total-records="5"
+        page-no="1"
+        page-size="2"
+        show-total-pages="false"
+        show-first-last="false"
+        show-total-records="false"
+        show-page-size-nav="false">
+</paging>
+
+@section Scripts {
+    <script>
+        $(document).ready(function (){
+            let btns = $(".dltnews");
+            btns.each((i, el) => {
+                $(el).click(e => {
+                    e.preventDefault();
+                    if (confirm("ნამდვილად გსურთ წაშლა?")) {
+                        let id = $(el).data("id");
+                        $.ajax({
+                            url: "/api/vacancy/delete",
+                            method: "DELETE",
+                            dataType: "json",
+                            data: { id: id },
+                            success: function (data) {
+                                location.reload();
+                            },
+                            error: function (data) {
+                                alert(`${data.status} => ${data.statusText}`)
+                            }
+                        })
+                    }
+
+
+                })
+            })
+        })
+    </script>
+}
+
+
+
+

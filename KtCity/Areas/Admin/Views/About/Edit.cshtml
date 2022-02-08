@@ -1,0 +1,123 @@
+﻿@model About
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="mainContainer_content-header">
+    <h3>ჩვენ შესახებ რედაქტირება</h3>
+</div>
+<div class="mainContainer_content-newsContainer">
+    <form id="newsForm"
+          asp-action="Edit"
+          method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly"></div>
+        <input type="hidden" asp-for="id" />
+        <div class="form-group">
+            <label for="title">@Html.DisplayNameFor(m => m.Name)</label><br>
+            <input id="title" class="title" asp-for="Name" />
+            <span asp-validation-for="Name" style="color: #d9534f"></span>
+        </div>
+        <div class="form-group">
+            <label for="title">@Html.DisplayNameFor(m => m.Address)</label><br>
+            <input id="title" class="title" asp-for="Address" />
+            <span asp-validation-for="Address" style="color: #d9534f"></span>
+        </div>
+
+        <div class="form-group">
+            <label>@Html.DisplayNameFor(m => m.RekviziteStrng)</label>
+            <br>
+            <textarea asp-for="RekviziteStrng"></textarea>
+            <div>
+                <span asp-validation-for="RekviziteStrng" style="color: #d9534f"></span>
+            </div>
+
+        </div>
+        <div class="form-group">
+            <label>სურათი</label>
+            <br>
+            <input type="file" name="img" asp-for="Image" />
+            <div>
+                <span asp-validation-for="Image" style="color: #d9534f"></span>
+            </div>
+
+        </div>
+        <div class="form-group">
+            <label>@Html.DisplayNameFor(m => m.EmailString)</label>
+            <br>
+            <input type="email" id="emtext"
+                   style="width:15rem;
+                          padding:2px 5px;
+                    " />
+            <button id="addEmail" style="padding: 2px 5px;">დამატება</button>
+            <button id="clearEmail" style="padding: 2px 5px;">გაწმენდა</button>
+            <br />
+            <input type="text" style="width: 100%; padding: 2px 0.6rem; "
+                   readonly asp-for="EmailString" id="emailText" />
+
+
+        </div>
+        <div class="form-group">
+            <label>@Html.DisplayNameFor(m => m.Description)</label>
+            <br>
+            <textarea id="desctiption" asp-for="Description"></textarea>
+            <div>
+                <span asp-validation-for="Description" style="color: #d9534f"></span>
+            </div>
+
+        </div>
+        <div class="form-group">
+            <label>@Html.DisplayNameFor(m => m.Tag)</label>
+            <input type="checkbox" asp-for="Tag" />
+        </div>
+        <div class="form-group">
+            <label>@Html.DisplayNameFor(m => m.Text)</label>
+            <br>
+            <textarea id="editor" asp-for="Text"></textarea>
+            <div>
+                <span asp-validation-for="Text" style="color: #d9534f"></span>
+            </div>
+
+        </div>
+
+        <div class="form-group" style="margin-bottom:5rem">
+            <input type="submit" value="დამატება" />
+        </div>
+    </form>
+</div>
+@section Scripts {
+    <script src="/js/ckeditor/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace("editor")
+        let form = document.getElementById("newsform");
+        form.addEventListener("submit", e => {
+            let inst = CKEDITOR.instances.editor;
+            form.innerHTML = inst.getData();
+        })
+
+
+    </script>
+    <script>
+      $(document).ready(function (){
+          let btn = $("#addEmail")
+          let emlt = $("#emailText");
+          let btncl = $("#clearEmail");
+          console.log($(btn))
+          $(btn).click(e => {
+              e.preventDefault();
+              let emls = $("#emailText").val() + $("#emtext").val() + ";"
+              emlt.val(emls);
+              $("#emtext").val("");
+          })
+          $(btncl).click(e => {
+              e.preventDefault();
+              if (confirm("ნამდვილად გსურთ ემაილების გაუქმება")) {
+                  $("#emailText").val("");
+              }
+
+          })
+
+      })
+    </script>
+}
+

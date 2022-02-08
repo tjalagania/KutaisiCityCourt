@@ -1,0 +1,147 @@
+﻿@model StructAndOtherFilesViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="mainContainer_content-header">
+    <h3>სტატისტიკის რედაქტირება</h3>
+</div>
+<div class="mainContainer_content-newsContainer" style="padding-bottom:4rem;">
+    <form id="newsForm"
+          asp-action="CreateStruct"
+          method="post">
+        <div asp-validation-summary="ModelOnly"></div>
+
+        <input type="hidden" asp-for="Struct.id" />
+        <div class="form-group">
+            <label>@Html.DisplayNameFor(m => m.Struct.StaticText)</label>
+            <br>
+            <textarea id="editor" asp-for="Struct.StaticText"></textarea>
+            <div>
+                <span asp-validation-for="Struct.StaticText" style="color: #d9534f"></span>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="დამატება" />
+        </div>
+    </form>
+</div>
+<div class="mainContainer_content-header">
+    <h3>მარეგულებლის ფაილები რედაქტირება</h3>
+</div>
+
+<div class="mainContainer_content-addPosition">
+    
+    <div class="mainContainer_content-addPosition-input">
+        <form method="post" 
+              asp-action="CreateFile" 
+              enctype="multipart/form-data"
+              style="flex-direction:column;
+        align-items: flex-start;
+">
+            <div asp-validation-summary="ModelOnly"></div>
+            <div class="form-group" style="margin-bottom:1rem;">
+                <label>@Html.DisplayNameFor(m => m.AbAtachFile.Anotation)</label><br />
+                <input type="text" asp-for="AbAtachFile.Anotation" />
+                <span asp-validation-for="AbAtachFile.Anotation"></span>
+            </div><br />
+            <div class="form-group">
+                <label>@Html.DisplayNameFor(m=>m.AbAtachFile.FileName)</label>
+                <input type="file" name="file" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="დამატება" />
+            </div>
+        </form>
+
+
+    </div>
+</div>
+<div class="mainContainer_content-tablediv">
+    <table class="table" style="width:100%;">
+        <thead class="table-head">
+            <tr class="table-head-tr">
+                <td class="table-head-tr-td sizing">ფაილის აღწერა</td>
+                <td class="table-head-tr-td sizing"
+                    style="width:20rem;">
+                    ფაილის სახელი
+                </td>
+               
+                
+                <td class="table-head-tr-td sizing">წაშლა</td>
+            </tr>
+        </thead>
+        <tbody class="table-body">
+            @if (Model.AbAtachFiles.Count > 0)
+            {
+                @foreach (var item in Model.AbAtachFiles)
+                {
+                    <tr class="table-body-tr">
+                        <td class="table-body-tr-td sizing">@item.Anotation</td>
+                        <td class="table-body-tr-td sizing">
+
+                            @item.FileName
+
+
+                        </td>
+                       
+                        <td class="table-body-tr-td sizing"
+                            style="width:2rem">
+                            <a asp-action="Edit" asp-route-id="@item.id">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </td>
+                        <td class="table-body-tr-td sizing ">
+                            <a class="delPosition" data-id="@item.id">
+                                <i class="far _coursor fa-trash-alt "></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="/js/ckeditor/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace("editor")
+        let form = document.getElementById("newsform");
+        form.addEventListener("submit", e => {
+            let inst = CKEDITOR.instances.editor;
+            form.innerHTML = inst.getData();
+        })
+    </script>
+    <script>
+        $(document).ready(function () {
+            var dlpst = $(".delPosition");
+            dlpst.each((i, el) => {
+                $(el).click((e) => {
+                    let id = $(el).data("id");
+                    if (confirm("ნამდივლად გსურთ წაშლა?")) {
+                        $.ajax({
+                            url: "/api/code/delete",
+                            method: "DELETE",
+                            dataType: "json",
+                            data: { id: id },
+                            success: function (data) {
+                                location.reload();
+                            }
+                        })
+                    }
+
+                })
+            })
+        })
+    </script>
+
+}
+
+
+
+

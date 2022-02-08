@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>C:\Users\tjalagania\Desktop\kcct</_PublishTargetUrl>
+    <History>True|2022-02-03T08:45:44.7842312Z;True|2022-02-03T12:10:11.9643386+04:00;True|2022-02-03T12:01:56.4800915+04:00;True|2022-02-03T11:41:30.5740308+04:00;True|2022-02-03T10:45:23.6935913+04:00;True|2022-02-03T10:21:15.7234234+04:00;</History>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,118 @@
+﻿@model CodeViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="mainContainer_content-addPosition">
+    <h3>ბმულის დამატება</h3>
+    <div class="mainContainer_content-addPosition-input">
+        <form method="post" asp-action="Create" style="flex-direction:column;
+        align-items: flex-start;
+">
+            <div asp-validation-summary="ModelOnly"></div>
+            <div class="form-group" style="margin-bottom:1rem;">
+                <label>@Html.DisplayNameFor(m => m.Code.CodeName)</label><br />
+                <input type="text" asp-for="Code.CodeName" />
+                <span asp-validation-for="Code.CodeName"></span>
+            </div><br />
+            <div class="form-group" style="margin-bottom:1rem;">
+                <label>@Html.DisplayNameFor(m => m.Code.CodeNumber)</label><br />
+                <input type="text" asp-for="Code.CodeNumber" />
+                <span asp-validation-for="Code.CodeNumber"></span>
+            </div><br />
+            <div style="margin:0 0.3rem 1rem 0">
+                <label for="rang"
+                       style="
+                         font-size:0.5rem;
+
+                        ">
+                    @Html.DisplayNameFor(m => m.Code.PositionInList)
+                </label>
+                <input id="rang" type="number" asp-for="Code.PositionInList" />
+                <span asp-validation-for="Code.PositionInList"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="დამატება" />
+            </div>
+        </form>
+
+
+    </div>
+</div>
+<div class="mainContainer_content-tablediv">
+    <table class="table" style="width:100%;">
+        <thead class="table-head">
+            <tr class="table-head-tr">
+                <td class="table-head-tr-td sizing">კოდის დასახელება</td>
+                <td class="table-head-tr-td sizing"
+                    style="width:20rem;">
+                    კოდი
+                </td>
+                <td class="table-head-tr-td sizing">კოდის პოზიცია სიაში</td>
+                <td class="table-head-tr-td sizing">რედაქტირება</td>
+                <td class="table-head-tr-td sizing">წაშლა</td>
+            </tr>
+        </thead>
+        <tbody class="table-body">
+            @if (Model.Codes.Count > 0)
+            {
+                @foreach (var item in Model.Codes)
+                {
+                    <tr class="table-body-tr">
+                        <td class="table-body-tr-td sizing">@item.CodeName</td>
+                        <td class="table-body-tr-td sizing">
+                            
+                                @item.CodeNumber
+                            
+
+                        </td>
+                        <td class="table-body-tr-td sizing"
+                            style="width:1rem;">
+                            @item.PositionInList
+                        </td>
+                        <td class="table-body-tr-td sizing"
+                            style="width:2rem">
+                            <a asp-action="Edit" asp-route-id="@item.id">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </td>
+                        <td class="table-body-tr-td sizing ">
+                            <a class="delPosition" data-id="@item.id">
+                                <i class="far _coursor fa-trash-alt "></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            var dlpst = $(".delPosition");
+            dlpst.each((i, el) => {
+                $(el).click((e) => {
+                    let id = $(el).data("id");
+                    if (confirm("ნამდივლად გსურთ წაშლა?")) {
+                        $.ajax({
+                            url: "/api/code/delete",
+                            method: "DELETE",
+                            dataType: "json",
+                            data: { id: id },
+                            success: function (data) {
+                                location.reload();
+                            }
+                        })
+                    }
+
+                })
+            })
+        })
+    </script>
+
+}
+

@@ -1,0 +1,80 @@
+﻿@model Commands
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="mainContainer_content-header">
+    <h3>სიახლის დამატება</h3>
+</div>
+<div class="mainContainer_content-newsContainer" style="padding-bottom:4rem;">
+    <form id="newsForm"
+          asp-action="Edit"
+          method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly"></div>
+        <input type="hidden" asp-for="id" />
+        <div class="form-group">
+            <label for="title">@Html.DisplayNameFor(m => m.Title)</label><br>
+            <input id="title" class="title" asp-for="Title" />
+            <span asp-validation-for="Title" style="color: #d9534f"></span>
+        </div>
+
+        <div class="form-group">
+            <label>@Html.DisplayNameFor(m => m.PostedDate)</label>
+            <br>
+            <input type="date" class="date" asp-for="PostedDate" />
+            <div>
+                <span asp-validation-for="PostedDate" style="color: #d9534f"></span>
+            </div>
+
+        </div>
+        
+        <div class="form-group">
+            <label>@Html.DisplayNameFor(m => m.Description)</label>
+            <br>
+            <textarea id="desctiption" asp-for="Description"></textarea>
+            <div>
+                <span asp-validation-for="Description" style="color: #d9534f"></span>
+            </div>
+
+        </div>
+        <div class="form-group">
+            <label>@Html.DisplayNameFor(m => m.Text)</label>
+            <br>
+            <textarea id="editor" asp-for="Text"></textarea>
+            <div>
+                <span asp-validation-for="Text" style="color: #d9534f"></span>
+            </div>
+
+        </div>
+        <div class="form-group">
+
+            <label>მიმაგრებული ფაილები</label>
+            <br>
+            <input type="file" name="files" multiple>
+
+        </div>
+        <div class="form-group">
+            <div>
+                <label>ყველა მიმაგრებული ფაილის წაშლა...</label>
+                <input type="checkbox" value="true" name="dlallfls" />
+            </div>
+
+        </div>
+        <div class="form-group">
+            <input type="submit" value="დამატება" />
+        </div>
+    </form>
+</div>
+
+<script src="/js/ckeditor/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace("editor")
+    let form = document.getElementById("newsform");
+    form.addEventListener("submit", e => {
+        let inst = CKEDITOR.instances.editor;
+        form.innerHTML = inst.getData();
+    })
+</script>

@@ -1,0 +1,24 @@
+﻿@model List<Cods>
+@{
+    ViewData["Title"] = "კოდები";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="mainContainer shadows">
+    <div class="container">
+        <div class="container_codebi">
+            @if (Model != null)
+            {
+                foreach (Cods cd in Model)
+                {
+                    <div class="container_codebi-aplet">
+                        <h4>@cd.CodeName</h4>
+                        <h5>@cd.CodeNumber</h5>
+                    </div>
+                }
+            }
+
+            </div>
+        </div>>
+    </div>
+

@@ -1,0 +1,58 @@
+﻿@model Admin
+@{
+    ViewData["Title"] = "Login";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/admin.css">
+    <title>Login</title>
+</head>
+<body>
+
+    <div class="main">
+
+
+        <div class="container_auth">
+            <div class="container_auth-img">
+                <img src="/img/logo.png" />
+            </div>
+            <div class="container_auth-item">
+                <h1>ავტორიზაცია</h1>
+                <form class="container_auth-item_form" asp-action="login">
+                    <div class="container_auth-item_form-group">
+                        <label for="login" class="container_auth-item_form-group-label">
+                            Login
+                        </label><br>
+                        <input id="login"
+                               asp-for="Login"
+                               class="container_auth-item_form-group-input" />
+                    </div>
+                    <div class="container_auth-item_form-roup">
+                        <label for="login" class="container_auth-item_form-group-label">
+                            Password
+                        </label><br>
+                        <input id="login" 
+                               asp-for="Password"
+                               type="password" class="container_auth-item_form-group-input" />
+                    </div>
+                    <div class="container_auth-item_form-group">
+
+                        <input id="login"
+                               type="submit"
+                               value="ავტორიზაცია"
+                               class="container_auth-item_form-group-btn" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+

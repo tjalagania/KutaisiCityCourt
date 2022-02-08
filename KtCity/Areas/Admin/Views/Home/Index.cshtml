@@ -1,0 +1,95 @@
+﻿@model KtCity.Models.ViewModels.PositonAndPositionList
+@{
+    ViewData["Title"] = "პოზიების ცხრილი";
+}
+
+<div class="mainContainer_content-addPosition">
+    <h3>პიზიციის დასახელება</h3>
+    <div class="mainContainer_content-addPosition-input">
+        <form method="post" asp-action="Create">
+            <div asp-validation-summary="ModelOnly"></div>
+            <div class="form-group">
+                <input type="text" name="Position.Name" />
+                <span asp-validation-for="Position.Name"></span>
+            </div>
+            <div style="margin-right:0.3rem">
+                <label for="rang"
+                       style="
+                         font-size:0.5rem;
+
+                        ">რანგი</label>
+                <input id="rang" type="number" name="Position.Rang" value="100" />
+                <span asp-validation-for="Position.Rang"></span>
+            </div>
+            <input type="submit" value="დამატება" />
+
+
+        </form>
+
+
+    </div>
+</div>
+<div class="mainContainer_content-tablediv">
+    <table class="table" style="width:100%;">
+        <thead class="table-head">
+            <tr class="table-head-tr">
+                <td class="table-head-tr-td sizing">პოზიციის დასახელება</td>
+                <td class="table-head-tr-td sizing">რანგი</td>
+                <td class="table-head-tr-td sizing">რედაქტირება</td>
+                <td class="table-head-tr-td sizing">წაშლა</td>
+            </tr>
+        </thead>
+        <tbody class="table-body">
+            @if (Model.PostionList.Count > 0)
+            {
+                @foreach (var item in Model.PostionList)
+                {
+                    <tr class="table-body-tr">
+                        <td class="table-body-tr-td sizing">@item.Name</td>
+                        <td class="table-body-tr-td sizing">@item.Rang</td>
+                        <td class="table-body-tr-td sizing"
+                            
+                            style="width:2rem"
+                            >
+                            <a asp-action="Edit" asp-route-id="@item.id">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </td>
+                        <td class="table-body-tr-td sizing ">
+                            <a class="delPosition" data-id="@item.id">
+                                <i class="far _coursor fa-trash-alt "></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            var dlpst = $(".delPosition");
+            dlpst.each((i, el) => {
+                $(el).click((e) => {
+                    let id = $(el).data("id");
+                    if (confirm("ნამდივლად გსურთ წაშლა?")) {
+                        $.ajax({
+                            url: "/api/position/delete",
+                            method: "DELETE",
+                            dataType: "json",
+                            data: { id: id },
+                            success: function (data) {
+                                location.reload();
+                            }
+                        })
+                    }
+
+                })
+            })
+        })
+    </script>
+
+}

@@ -1,0 +1,25 @@
+﻿@model Statistic
+@{
+    ViewData["Title"] = "სტატისტიკა";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="mainContainer shadows">
+    <div class="container">
+        <div class="container_alone">
+            <div class="container_alone-header">
+                <div class="container_alone-img">
+                    <img src="/img/statist.jpg" alt="" />
+                </div>
+
+            </div>
+            <div class="container_alone-text" 
+                 
+
+">
+                @Html.Raw(Model.StaticText)
+            </div>
+        </div>
+    </div>
+</div>
+

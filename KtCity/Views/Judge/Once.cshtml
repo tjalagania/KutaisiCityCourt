@@ -1,0 +1,51 @@
+﻿@model Judge
+@{
+    
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="mainContainer shadows">
+    <div class="container">
+        <div class="container_jdg">
+            <div class="container_jdg-img">
+
+                <div>
+                    <img src="/img/@(Model.Image??ConfigClass.NoImage)" />
+                </div>
+                <div class="container_jdg-aparati">
+                    <h4 class="container_jdg-aparati-title">
+                        აპარატი
+                    </h4>
+                    <div class="container_jdg-aparati-grid">
+                        @foreach (Worker wk in Model.Aparati)
+                        {
+                            <div class="container_jdg-aparati-grid-item">
+
+                                <div class="container_jdg-aparati-grid-item-worker">
+                                    <img class="container_jdg-aparati-grid-item-worker-img" src=/img/@(wk.Image??ConfigClass.NoImage) />
+                                    <a asp-controller="Worker" 
+                                       asp-action="once"
+                                       asp-route-id="@wk.id">
+                                        <span class="container_jdg-aparati-grid-item-worker-name">@($"{wk.FirstName} {wk.LastName}")</span>
+                                        <br />
+                                        <span class="container_jdg-aparati-grid-item-worker-position">@wk.Position.Name</span>
+                                    </a>
+                                </div>
+
+                            </div>
+                        }
+                    </div>
+                </div>
+
+            </div>
+            <div class="container_jdg-biography">
+                <h3 class="container_jdg-biography-judgename">
+                    @($"{Model.FirstName} {Model.LastName}")
+                </h3>
+                @Html.Raw(Model.Biography)
+            </div>
+
+        </div>
+    </div>
+</div>
+

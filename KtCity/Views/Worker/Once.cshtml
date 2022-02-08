@@ -1,0 +1,39 @@
+﻿@using System.Globalization
+@model Worker
+@{
+    
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="mainContainer shadows">
+    <div class="container">
+        <div class="container_jdg">
+            <div class="container_jdg-img">
+
+                <div>
+                    <img src="/img/@(Model.Image??ConfigClass.NoImage)" />
+                </div>
+                <div class="container_jdg-aparati">
+                    <h4 class="container_jdg-aparati-title">
+                    </h4>
+
+                </div>
+
+            </div>
+            <div class="container_jdg-biography">
+                <h3 class="container_jdg-biography-judgename">
+                    @($"{Model.FirstName} {Model.LastName}")
+                </h3>
+                <h4 class="bg_items">
+                   <span>დაბადების თარიღი:</span> @(DateTime.Parse(Model.Birthday)
+                            .ToString("d",new CultureInfo("de-DE")))
+                </h4>
+                <h4 class="bg_items">
+                    <span>E-mail: </span>@Model.Emal</h4>
+                @Html.Raw(Model.Biography)
+            </div>
+
+        </div>
+    </div>
+</div>
+

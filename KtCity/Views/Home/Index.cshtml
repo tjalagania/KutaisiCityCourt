@@ -1,0 +1,126 @@
+﻿@using System.Globalization;
+@model IndexViewModel
+@{
+    ViewData["Title"] = "მთავარი";
+    Layout = "~/Views/Shared/IndexLayout.cshtml";
+}
+<div class="mainContainer shadows">
+    <div class="container ">
+        <div class="applet">
+            @if (Model.Abuot != null)
+            {
+                <div class="applet_about applet_sizing">
+                    <img class="applet_about-img" src="/img/@Model.Abuot.Image" />
+                    <h2 class="applet_about-title">@Model.Abuot.Name</h2>
+                    <p class="applet_about-text">
+                        @Model.Abuot.Description
+                    </p>
+                    <a class="applet_about-link" 
+                       asp-controller="About"
+                       asp-action="Index"
+                       >სრულად</a>
+                </div>
+            }
+
+            <div class="applet_news applet_sizing">
+                @if (Model.News != null)
+                {
+                    foreach (News nw in Model.News)
+                    {
+                        <div class="applet_news-item">
+                            <div class="applet_news-item-img">
+                                <img src="/img/@(nw.Image??ConfigClass.NoImage)" />
+                            </div>
+                            <div class="applet_news-item-text">
+                                <h3 class="applet_news-item-text-title">
+                                    @nw.Title
+                                </h3>
+                                <div class="applet_news-item-text-date">
+                                    <img src="/img/calendar.png" />
+                                    <span>@(DateTime.Parse(nw.PostedDate.ToString())
+                            .ToString("d",new CultureInfo("de-DE")))</span>
+                                </div>
+                                <a 
+                                   asp-controller="News" 
+                                   asp-action="once"
+                                   asp-route-id="@nw.id">სრულად</a>
+                            </div>
+                        </div>
+                    }
+                }
+
+                
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="mainContainer afterApplet mainColor">
+
+</div>
+<div class="mainContainer shadows">
+    <div class="container">
+        <div class="markedCases">
+            <div class="markedCases_title">
+                <h2>დღეს ჩანიშნულის საქმეები</h2>
+
+            </div>
+            <div class="markedCases_links">
+                <a class="markedCases_links-link redLink"
+                   asp-action="Index"
+                   asp-route-dt="kutaisicrime"
+                   asp-fragment="cstable">სისხლი</a>
+                <a class="markedCases_links-link greenLink"
+                   asp-action="Index"
+                   asp-route-dt="kutaisicivil"
+                   asp-fragment="cstable">სამოქალაქო</a>
+                <a class="markedCases_links-link blueLink"
+                   asp-action="Index"
+                   asp-route-dt="kutaisiadministrative"
+                   asp-fragment="cstable">ადმინისტრაციული</a>
+            </div>
+            <div class="markedCases_table" id="cstable">
+                <table class="markedCases_table-tb table">
+                    <thead class="markedCases_table-tb-thead">
+                        <tr class="markedCases_table-tb-tr">
+                            <th>
+                                დაწყების დრო
+                            </th>
+                            <th>
+                                მოსამრთლე
+                            </th>
+                            <th>
+                                მონაწილე პირები
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="markedCases_table-tb-tbody">
+                        @if (Model.CaseData != null)
+                        {
+                            foreach (CaseData cs in Model.CaseData)
+                            {
+                                <tr>
+                                    <td class="markedCases_table-tb-date">
+
+                                        @cs.StartTime
+
+                                    </td>
+                                    <td class="markedCases_table-tb-judge">
+                                        @cs.JudgeName
+                                    </td>
+                                    <td class="markedCases_table-tb-judge">
+                                        @cs.DefendantPatient
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

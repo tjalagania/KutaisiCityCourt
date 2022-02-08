@@ -1,0 +1,101 @@
+﻿@model List<Judge>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<table class="mainContainer_content-table">
+    <thead class="thead">
+        <tr class="thead-tr">
+            <td class="thead-tr-td">
+                სურათი
+            </td>
+            <td class="thead-tr-td">
+                სახელი და გვარი
+            </td>
+            <td>კოლეგია</td>
+            <td class="thead-tr-td">
+                რედაქტირება
+            </td>
+            <td class="thead-tr-td">
+                წაშლა
+            </td>
+        </tr>
+    </thead>
+    <tbody class="tbody">
+        @if (Model.Count > 0)
+        {
+            foreach (var item in Model)
+            {
+        <tr class="tbody-tr">
+            <td class="tbody-tr-td" >
+                <img src='/img/@(item.Image??ConfigClass.NoImage)' alt="">
+            </td>
+            <td class="tbody-tr-td" style="width:10%">
+                @($"{item.FirstName} {item.LastName}")
+            </td>
+            <td class="tbody-tr-td" style="width: 50%">
+                @if (item.Position != null)
+                {
+                    @item.Position.Name
+                }
+                else
+                {
+                    @ConfigClass.NoJudgeInPalat
+                }
+            </td>
+            <td class="tbody-tr-td">
+                <a asp-action="Edit"
+                   asp-route-id="@item.id">
+                    <i class="far _coursor  fa-edit" data-id="1"></i>
+                </a>
+            </td>
+            <td class="tbody-tr-td">
+                <a data-id="@item.id" class="deljudge">
+                    <i class="far _coursor fa-trash-alt" ></i>
+                </a>
+                
+            </td>
+        </tr>
+            }
+        }
+        else
+            {
+                <tr>
+                    <td></td>
+                    <td>ბაზები ცარიელია</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            }
+
+    </tbody>
+</table>
+@section Scripts {
+<script>
+    $(document).ready(function () {
+        let btns = $(".deljudge")
+        btns.each((i, el) => {
+            $(el).click(e => {
+                e.preventDefault();
+                if (confirm("ნამდვილდ გსურთ წაშლა?")) {
+                    let id = $(el).data("id");
+                    $.ajax({
+                        url: "/api/judge/delete",
+                        method: "DELETE",
+                        dataType: "json",
+                        data: { id: id },
+                        success: function (data) {
+                            location.reload()
+                        },
+                        error: function (data) {
+                            alert(data.statusText)
+                        }
+                    });
+                }
+            })
+        })
+    })
+</script>
+}
+

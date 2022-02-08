@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/main.css">
+    <title>@ViewData["title"]</title>
+</head>
+<body>
+    <div class="mainContainer mainColor">
+        <div class="container">
+            <header class="header">
+                <div class="logo">
+                    <img src="/img/logo.png" alt="" class="logo_img">
+                    <div class="logo_catpion">
+                        <h1 class="ka_text header_font_sizing">ქუთაისის საქალაქო სასამართლო</h1>
+                        <p class="line"></p>
+                        <p class="en_text header_font_sizing">Kutaisi City Court</p>
+                    </div>
+                </div>
+            </header>
+        </div>
+
+
+    </div>
+    <div class="mainContainer menuBackColor">
+        <nav class="container">
+            <ul class="nav_list">
+                <li class="nav_list-item"><a
+                                             asp-controller="Home"
+                                             asp-action="Index"
+                                             >მთავარი</a></li>
+                <li class="nav_list-item"><a asp-controller="About"
+                                             asp-action="Index">ჩვენ შესახებ</a></li>
+                <li class="nav_list-item"><a asp-controller="News"
+                                             asp-action="Index">სიახლეები</a></li>
+                <li class="nav_list-item"><a asp-controller="Judge"
+                                             asp-action="Index">მოსამართლეები</a></li>
+                <li class="nav_list-item"><a asp-controller="Worker"
+                                             asp-action="Index">მოხელეები</a></li>
+                <li class="nav_list-item"><a asp-controller="Galery"
+                                             asp-action="Index">გალერეა</a></li>
+                @*<li class="nav_list-item"><a href="">კონტაქტი</a></li>*@
+            </ul>
+        </nav>
+    </div>
+    <div class="cover">
+        <img class="cover_img" src="/img/cover.png" />
+        <div class="farda"></div>
+    </div>
+    <div class="mainContainer sub_menu">
+        <div class="container">
+            <ul class="nav_list">
+                <li class="nav_list-item "><a
+                                              asp-controller="Law"
+                                              asp-action="Index"
+                                              >კანონმდებლობა</a></li>
+                <li class="nav_list-item"><a asp-controller="Command"
+                                             asp-action="Index"
+                                             >ბრძანებები</a></li>
+                <li class="nav_list-item"><a 
+                                             asp-controller="Code"
+                                             asp-action="Index"
+                                             >კოდები</a></li>
+                
+                <li class="nav_list-item"><a 
+                                             asp-controller="Vacancy"
+                                             asp-action="Index"
+                                             >ვაკანსია</a></li>
+                
+                <li class="nav_list-item"><a href="https://ecd.court.ge/" target="_blank">საჯარო ინფორმაცია</a></li>
+                <li class="nav_list-item"><a 
+                                             asp-controller="Statistic"
+                                             asp-action="Index"
+                                             >სტატისტიკა</a></li>
+            </ul>
+        </div>
+
+    </div>
+    @RenderBody()
+    <footer class="mainContainer">
+        <div class="container">
+            <div class="footer">
+
+                <h3 class="footer-title">ქუთაისის საქალაქო სასამართლო</h3>
+                <div class="footer_texts">
+                    <div>
+                        <p class="footer_texts-text"><i class="fas fa-location-arrow footer-icon"></i>მისამართი: ქ. ქუთაისი, კუპრაძის ქ. № 11 ;4600</p>
+                        <p class="footer_texts-text"><i class="fas fa-blender-phone footer-icon"></i>(+995 431) 23-46-02 - თავმჯდომარის მისაღები (კომუტატორი)</p>
+                    </div>
+                    <div>
+                        <div class="footer_texts-text"><i class="fas fa-blender-phone footer-icon"></i><span>(+995 431) 23-46-03 - კანცელარია</span></div>
+                        <p class="footer_texts-text"><i class="fas fa-blender-phone footer-icon"></i>(+995 431) 23-46-07 - მანდატურის სამსახური</p>
+                    </div>
+
+                    <p class="footer_texts-text"><i class="fas fa-at footer-icon"></i>kutaisicity@court.ge</p>
+                </div>
+
+            </div>
+        </div>
+
+    </footer>
+    <script src="https://kit.fontawesome.com/dd17326ff7.js" crossorigin="anonymous"></script>
+</body>
+</html>

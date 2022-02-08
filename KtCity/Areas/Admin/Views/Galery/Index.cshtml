@@ -1,0 +1,100 @@
+﻿@model KtCity.Models.ViewModels.GaleryViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="mainContainer_content-addPosition">
+    <h3>გალერიის დასახელება</h3>
+    <div class="mainContainer_content-addPosition-input">
+        <form method="post" asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly"></div>
+            <div class="form-group">
+                <input type="text" asp-for="Galery.Name" />
+                <span asp-validation-for="Galery.Name"></span>
+            </div>
+            <div class="form-group">
+                <label>ქოვერი</label>
+                <input type="file" name="cover" />
+            </div>
+            <input type="submit" value="დამატება" />
+
+
+        </form>
+
+
+    </div>
+</div>
+<div class="mainContainer_content-tablediv">
+    <table class="table" style="width:100%;">
+        <thead class="table-head">
+            <tr class="table-head-tr">
+                <td class="table-head-tr-td sizing">დასახელება</td>
+
+                <td class="table-head-tr-td sizing">რედაქტირება</td>
+                <td class="table-head-tr-td sizing">წაშლა</td>
+            </tr>
+        </thead>
+        <tbody class="table-body">
+            @if (Model.Galeries.Count > 0)
+            {
+                @foreach (var item in Model.Galeries)
+                {
+                    <tr class="table-body-tr">
+                        <td class="table-body-tr-td sizing">
+                        @item.Name</td>
+                        <td class="table-body-tr-td sizing"
+                            style="width:2rem">
+                            <a asp-action="Edit" asp-route-id="@item.id">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </td>
+                        <td class="table-body-tr-td sizing ">
+                            <a class="delGalery" data-id="@item.id">
+                                <i class="far _coursor fa-trash-alt "></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr class="table-body-tr">
+                    <td class="table-body-tr-td sizing">ბაზები ცარიელია</td>
+                    <td class="table-body-tr-td sizing"></td>
+                    <td class="table-body-tr-td sizing ">
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            var dlpst = $(".delGalery");
+            dlpst.each((i, el) => {
+                $(el).click((e) => {
+                    let id = $(el).data("id");
+                    if (confirm("ნამდივლად გსურთ წაშლა?")) {
+                        $.ajax({
+                            url: "/api/galery/deletegalery",
+                            method: "DELETE",
+                            dataType: "json",
+                            data: { id: id },
+                            success: function (data) {
+                                location.reload();
+                            }
+                        })
+                    }
+
+                })
+            })
+        })
+    </script>
+
+}
+

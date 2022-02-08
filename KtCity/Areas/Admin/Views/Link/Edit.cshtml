@@ -1,0 +1,50 @@
+﻿@model KtCity.Models.links
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="mainContainer_content-addPosition">
+    <h3>ბმულის რედაქტირება</h3>
+    <div class="mainContainer_content-addPosition-input" style="margin-top:3rem">
+        <form method="post" asp-action="Edit" style="flex-direction:column;
+        align-items: flex-start;
+">          <input type="hidden" asp-for="id" />
+            <div asp-validation-summary="ModelOnly"></div>
+            <div class="form-group" style="margin-bottom:1rem;">
+                <label>@Html.DisplayNameFor(m => m.Text)</label><br />
+                <input type="text" asp-for="Text" />
+                <span asp-validation-for="Text"></span>
+            </div><br />
+            <div class="form-group" style="margin-bottom:1rem;">
+                <label>@Html.DisplayNameFor(m => m.Link)</label><br />
+                <input type="text" asp-for="Link" />
+                <span asp-validation-for="Link"></span>
+            </div><br />
+            <div style="margin:0 0.3rem 1rem 0">
+                <label for="rang"
+                       style="
+                         font-size:0.5rem;
+
+                        ">
+                    @Html.DisplayNameFor(m => m.PositinInLink)
+                </label>
+                <input id="rang" type="number" asp-for="PositinInLink" />
+                <span asp-validation-for="PositinInLink"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="რედაქტირება" />
+            </div>
+        </form>
+
+
+    </div>
+</div>
+
+<div style="margin-top:2rem">
+    <a asp-action="Index">Back to List</a>
+</div>
+

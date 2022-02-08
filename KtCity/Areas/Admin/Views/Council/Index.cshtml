@@ -1,0 +1,119 @@
+﻿@model KtCity.Models.ViewModels.PalatAndPalatsList
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="mainContainer_content-addPosition">
+    <h3>პიზიციის დასახელება</h3>
+    
+<br />
+<div class="mainContainer_content-addPosition-input">
+    <form method="post" asp-action="Create">
+        <div asp-validation-summary="ModelOnly" style="width:100%;
+"></div>
+        <div style="display: block; color: #d9534f;">
+            <span asp-validation-for="Palat.Name"></span>
+        </div>
+        <div>
+            <span asp-validation-for="Palat.Rang"></span>
+        </div><br />
+        <div class="form-group">
+
+            <input type="text" asp-for="Palat.Name" />
+
+        </div>
+        <div style="margin-right:0.3rem">
+            <label for="rang"
+                   style="
+                         font-size:0.5rem;
+
+                        ">რანგი</label>
+
+            <input id="rang" type="number" asp-for="Palat.Rang" value="100" />
+
+        </div>
+        <input type="submit" value="დამატება" />
+
+
+    </form>
+
+
+</div>
+</div>
+<div class="mainContainer_content-tablediv">
+    <table class="table" style="width:100%;">
+        <thead class="table-head">
+            <tr class="table-head-tr">
+                <td class="table-head-tr-td sizing">პალატის დასახელება</td>
+                <td class="table-head-tr-td sizing">რანგი</td>
+                <td class="table-head-tr-td sizing">რედაქტირება</td>
+                <td class="table-head-tr-td sizing">წაშლა</td>
+            </tr>
+        </thead>
+        <tbody class="table-body">
+            @if (Model.PalatList.Count > 0)
+            {
+                @foreach (var item in Model.PalatList)
+                {
+                    <tr class="table-body-tr">
+                        <td class="table-body-tr-td sizing">@item.Name</td>
+                        <td class="table-body-tr-td sizing">@item.Rang</td>
+                        <td class="table-body-tr-td sizing"
+                            style="width:2rem">
+                            <a asp-action="Edit" asp-route-id="@item.id">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </td>
+                        <td class="table-body-tr-td sizing ">
+                            <a class="delPalat" data-id="@item.id">
+                                <i class="far _coursor fa-trash-alt "></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td>ბაზები ცარიელი</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            var dlpst = $(".delPalat");
+            dlpst.each((i, el) => {
+                $(el).click((e) => {
+                    let id = $(el).data("id");
+                    if (confirm("ნამდივლად გსურთ წაშლა?")) {
+                        $.ajax({
+                            url: "/api/council/delete",
+                            method: "DELETE",
+                            dataType: "json",
+                            data: { id: id },
+                            success: function (data) {
+                                location.reload();
+                            },
+                            error: function (data) {
+                                alert(data.status)
+                            }
+                            
+                        })
+                    }
+
+                })
+            })
+        })
+    </script>
+
+}
+

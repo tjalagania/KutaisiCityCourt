@@ -1,0 +1,44 @@
+﻿@model List<Galery>
+@{
+    ViewData["Title"] = "გალერეა";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int lines = Model.Count / ConfigClass.NewsInLine;
+    lines = (lines == 0) ? lines + 1 : lines;
+    int nashti = Model.Count % ConfigClass.NewsInLine;
+    //lines = (nashti > 0) ? lines + 1 : lines;
+    int startK = 0;
+}
+@for (int i = 0; i < lines; i++)
+{
+    startK = i * (ConfigClass.NewsInLine);
+    <div class="mainContainer shadows">
+        <div class="container">
+            <div class="container-galery">
+                @foreach (var item in Model.Skip(startK).Take(ConfigClass.NewsInLine))
+                {
+                    {
+                        <div class="container-galery_item">
+                            <div class="container-galery_item_cover">
+                                <img src="/Galery/@(item.Cover??ConfigClass.NoImage)" alt="">
+                            </div>
+                            <div class="container-galery_item_anotation">
+                                <a asp-action="once" asp-route-id="@item.id">@item.Name</a>
+                            </div>
+                        </div>
+                    }
+                }
+
+
+            </div>
+        </div>
+    </div>
+
+}
+<paging total-records="5"
+        page-no="0"
+        page-size="ConfigClass.PageSize"
+        show-total-pages="false"
+        show-first-last="false"
+        show-total-records="false"
+        show-page-size-nav="false">
+</paging>

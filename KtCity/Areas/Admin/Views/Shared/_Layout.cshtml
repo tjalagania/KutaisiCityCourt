@@ -1,0 +1,265 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="~/css/site.css" />
+    <title>Document</title>
+</head>
+<body>
+    <div class="mainContainer">
+        <div class="mainContainer_side">
+
+            <div class="mainContainer_side-imag">
+                <img src="/img/logo.png" />
+                <h3>ადმინისტრატორის<br> პანელი</h3>
+            </div>
+            <div class="mainContainer_side-menu">
+                <ul class="mainContainer_side-menu-list">
+                    <li class="mainContainer_side-menu-list-item">
+                        პოზიცია
+                        <ul class="mainContainer_side-menu-list-item-submenu">
+                            <li class="mainContainer_side-menu-list-item-submenu-item">
+                                <a asp-area="Admin" asp-controller="Home" asp-action="Index"
+                                   class="mainContainer_side-menu-list-item-submenu-item-link">
+                                    დამატება
+                                </a>
+                            </li>
+                            <li class="mainContainer_side-menu-list-item-submenu-item">
+                                <a href="" class="mainContainer_side-menu-list-item-submenu-item-link">
+                                    რედაქტირე
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="mainContainer_side-menu-list-item">
+                        კოლეგია
+                        <ul class="mainContainer_side-menu-list-item-submenu">
+
+                            <li class="mainContainer_side-menu-list-item-submenu-item">
+                                <a asp-area="Admin"
+                                   asp-controller="Council"
+                                   asp-action="Index"
+                                   class="mainContainer_side-menu-list-item-submenu-item-link">
+                                    რედაქტირე
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="mainContainer_side-menu-list-item">
+                        სიახლე
+                        <ul class="mainContainer_side-menu-list-item-submenu">
+                            <li class="mainContainer_side-menu-list-item-submenu-item">
+                                <a asp-area="Admin"
+                                   asp-controller="News"
+                                   asp-action="Create"
+                                   class="mainContainer_side-menu-list-item-submenu-item-link">
+                                    დამატება
+                                </a>
+                            </li>
+                            <li class="mainContainer_side-menu-list-item-submenu-item">
+                                <a asp-area="Admin"
+                                   asp-controller="News"
+                                   asp-action="Index"
+                                   class="mainContainer_side-menu-list-item-submenu-item-link">
+                                    რედაქტირე
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="mainContainer_side-menu-list-item">
+                        აპარატი
+                        <ul class="mainContainer_side-menu-list-item-submenu">
+                            <li class="mainContainer_side-menu-list-item-submenu-item">
+                                <a asp-area="Admin"
+                                   asp-controller="Worker"
+                                   asp-action="Create"
+                                   class="mainContainer_side-menu-list-item-submenu-item-link">
+                                    დამატება
+                                </a>
+                            </li>
+                            <li class="mainContainer_side-menu-list-item-submenu-item">
+                                <a asp-area="Admin"
+                                   asp-controller="Worker"
+                                   asp-action="Index"
+                                   class="mainContainer_side-menu-list-item-submenu-item-link">
+                                    რედაქტირე
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="mainContainer_side-menu-list-item">
+                        მოსამართლე
+                        <ul class="mainContainer_side-menu-list-item-submenu">
+                            <li class="mainContainer_side-menu-list-item-submenu-item">
+                                <a asp-area="Admin"
+                                   asp-controller="Judge"
+                                   asp-action="Create"
+                                   class="mainContainer_side-menu-list-item-submenu-item-link">
+                                    დამატება
+                                </a>
+                            </li>
+                            <li class="mainContainer_side-menu-list-item-submenu-item">
+                                <a asp-area="Admin"
+                                   asp-controller="Judge"
+                                   asp-action="Index"
+                                   class="mainContainer_side-menu-list-item-submenu-item-link">
+                                    რედაქტირე
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="mainContainer_side-menu-list-item">
+                        გალერეა
+                        <ul class="mainContainer_side-menu-list-item-submenu">
+                            <li class="mainContainer_side-menu-list-item-submenu-item">
+                                <a asp-area="Admin"
+                                   asp-controller="Galery"
+                                   asp-action="Index"
+                                   class="mainContainer_side-menu-list-item-submenu-item-link">
+                                    დამატება
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="mainContainer_side-menu-list-item">
+                        ჩვენ შესახებ
+                        <ul class="mainContainer_side-menu-list-item-submenu">
+                            <li class="mainContainer_side-menu-list-item-submenu-item">
+                                <a asp-area="Admin"
+                                   asp-controller="About"
+                                   asp-action="Create"
+                                   class="mainContainer_side-menu-list-item-submenu-item-link">
+                                    დამატება
+                                </a>
+                            </li>
+                            <li class="mainContainer_side-menu-list-item-submenu-item">
+                                <a asp-area="Admin"
+                                   asp-controller="About"
+                                   asp-action="Index"
+                                   class="mainContainer_side-menu-list-item-submenu-item-link">
+                                    რედაქტირე
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="mainContainer_side-menu-list-item">
+                        მისამართები
+                        <ul class="mainContainer_side-menu-list-item-submenu">
+                            <li class="mainContainer_side-menu-list-item-submenu-item">
+                                <a asp-area="Admin" asp-controller="Link" asp-action="Index"
+                                   class="mainContainer_side-menu-list-item-submenu-item-link">
+                                    დამატება / რედაქტირება
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="mainContainer_side-menu-list-item">
+                        ბრძანება
+                        <ul class="mainContainer_side-menu-list-item-submenu">
+                            <li class="mainContainer_side-menu-list-item-submenu-item">
+                                <a asp-area="Admin"
+                                   asp-controller="Comand"
+                                   asp-action="Create"
+                                   class="mainContainer_side-menu-list-item-submenu-item-link">
+                                    დამატება
+                                </a>
+                            </li>
+                            <li class="mainContainer_side-menu-list-item-submenu-item">
+                                <a asp-area="Admin"
+                                   asp-controller="Comand"
+                                   asp-action="Index"
+                                   class="mainContainer_side-menu-list-item-submenu-item-link">
+                                    რედაქტირე
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="mainContainer_side-menu-list-item">
+                        კოდები
+                        <ul class="mainContainer_side-menu-list-item-submenu">
+                            <li class="mainContainer_side-menu-list-item-submenu-item">
+                                <a asp-area="Admin"
+                                   asp-controller="Code"
+                                   asp-action="Index"
+                                   class="mainContainer_side-menu-list-item-submenu-item-link">
+                                    დამატება / რედაქტირება
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="mainContainer_side-menu-list-item">
+                        ვაკანსია
+                        <ul class="mainContainer_side-menu-list-item-submenu">
+                            <li class="mainContainer_side-menu-list-item-submenu-item">
+                                <a asp-area="Admin"
+                                   asp-controller="Vacancy"
+                                   asp-action="Create"
+                                   class="mainContainer_side-menu-list-item-submenu-item-link">
+                                    დამატება
+                                </a>
+                            </li>
+                            <li class="mainContainer_side-menu-list-item-submenu-item">
+                                <a asp-area="Admin"
+                                   asp-controller="Vacancy"
+                                   asp-action="Index"
+                                   class="mainContainer_side-menu-list-item-submenu-item-link">
+                                    რედაქტირე
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="mainContainer_side-menu-list-item">
+                        სტატისტიკა
+                        <ul class="mainContainer_side-menu-list-item-submenu">
+                            <li class="mainContainer_side-menu-list-item-submenu-item">
+                                <a asp-area="Admin"
+                                   asp-controller="Statistic"
+                                   asp-action="Index"
+                                   class="mainContainer_side-menu-list-item-submenu-item-link">
+                                    რედაქტირება
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="mainContainer_side-menu-list-item">
+                        სხვა
+                        <ul class="mainContainer_side-menu-list-item-submenu">
+                            <li class="mainContainer_side-menu-list-item-submenu-item">
+                                <a asp-area="Admin"
+                                   asp-controller="Other"
+                                   asp-action="Index"
+                                   class="mainContainer_side-menu-list-item-submenu-item-link">
+                                    რედაქტირება
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="mainContainer_content">
+            @RenderBody()
+
+        </div>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/site.js" asp-append-version="true"></script>
+    <script src="https://kit.fontawesome.com/dd17326ff7.js" crossorigin="anonymous"></script>
+    <script src="~/js/site.js" ></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    
+    
+</body>
+</html>

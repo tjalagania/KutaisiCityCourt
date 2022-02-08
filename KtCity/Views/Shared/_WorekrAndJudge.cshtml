@@ -1,0 +1,89 @@
+﻿@model MainWorkerViewModel
+@{
+    int take = 0;
+    int count = 8;
+    int tmpl = (Model.Workers.Count - 4) / 8 + 1;
+    int lines = (tmpl % 8) == 0 ? tmpl + 1 : tmpl;
+}
+<div class="mainContainer shadows">
+    <div class="container">
+        <div class="container_worker">
+            <div class="container_worker-item">
+                @if (Model.Manager != null)
+                {
+                    <div class="container_worker-item-worker">
+                        <img src="/img/@(Model.Manager.Image??ConfigClass.NoImage)" />
+                        <a class="container_worker-item-worker-name" asp-action="once"
+                           asp-route-id="@Model.Manager.id">
+                            <span>@($"{Model.Manager.FirstName} {Model.Manager.LastName}")</span>
+                            <br />
+                            <span class="container_worker-item-worker-anotation">@(
+                        (Model.Manager is Worker)? ((Worker)Model.Manager).Position.Name :
+                            ((Judge)Model.Manager).Position.Name
+                        )</span>
+                        </a>
+                    </div>
+                }
+
+            </div>
+            <div class="container_worker-item"></div>
+            <div class="container_worker-item"></div>
+            <div class="container_worker-item"></div>
+            @foreach (var jd in Model.Workers)
+            {
+                <div class="container_worker-item">
+                    <div class="container_worker-item-worker">
+                        <img src="/img/@(jd.Image??ConfigClass.NoImage)" />
+                        <a class="container_worker-item-worker-name"
+                           asp-action="once"
+                           asp-route-id="@jd.id">
+                            <span>@($"{jd.FirstName} {jd.LastName}")</span>
+                            <br />
+                            <span class="container_worker-item-worker-anotation">
+                                @(
+                        (jd is Worker)? ((Worker)jd).Position.Name :
+                            ((Judge)jd).Position.Name
+                        )
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+@for (int i = 0; i < Model.Lines; i++)
+{
+
+    <div class="mainContainer shadows">
+        <div class="container">
+            <div class="container_worker">
+
+                @foreach (var jd in Model.SecondLine.Skip(take).Take(Model.PersoInLine))
+                {
+
+                    <div class="container_worker-item">
+                        <div class="container_worker-item-worker">
+                            <img src="/img/@(jd.Image??ConfigClass.NoImage)" />
+                            <a class="container_worker-item-worker-name"
+                               asp-action="once"
+                               asp-route-id="@jd.id">
+                                <span>@($"{jd.FirstName} {jd.LastName}")</span>
+                                <br />
+                                <span class="container_worker-item-worker-anotation">
+                                    @(
+                        (jd is Worker)? ((Worker)jd).Position.Name :
+                            ((Judge)jd).Position.Name
+                        )
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+    take += Model.PersoInLine;
+}

@@ -1,0 +1,86 @@
+﻿@model KtCity.Models.ViewModels.WorkerViewModel
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="mainContainer_content-header">
+    <h3>მოხელის დამატება</h3>
+</div>
+<div class="mainContainer_content-newsContainer">
+    <form asp-action="Create" method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div class="form-group">
+            <label for="title">@Html.DisplayNameFor(m => m.Worker.FirstName)</label><br>
+            <input id="title" class="title" asp-for="Worker.FirstName" />
+            <div>
+                <span asp-validation-for="Worker.FirstName" style="color: #d9534f;"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="title">@Html.DisplayNameFor(m => m.Worker.LastName)</label><br>
+            <input id="title" class="title" asp-for="Worker.LastName" />
+            <div>
+                <span asp-validation-for="Worker.LastName" style="color: #d9534f;"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>სურათი</label>
+            <br>
+            <input type="file" name="img" />
+        </div>
+        <div class="form-group">
+            <label>თანამდებობა</label>
+            <br>
+            <select name="position">
+                @foreach (var item in Model.Positions)
+                {
+                    <option value="@item.id">@item.Name</option>
+                }
+
+
+            </select>
+        </div>
+        <div class="form-group">
+            <label>@Html.DisplayNameFor(m => m.Worker.Birthday)</label>
+            <br>
+            <input type="date"
+                   style="width:10rem; padding:0.2rem"
+                   asp-for="Worker.Birthday" />
+            <div>
+                <span asp-validation-for="Worker.Birthday" style="color: #d9534f;"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>@Html.DisplayNameFor(m => m.Worker.Emal)</label>
+            <br>
+            <input type="email" asp-for="Worker.Emal" style="width:10rem; padding:0.2rem" />
+            <div>
+                <span asp-validation-for="Worker.Emal" style="color: #d9534f;"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>@Html.DisplayNameFor(m => m.Worker.Biography)</label>
+            <br>
+            <textarea id="editor" asp-for="Worker.Biography"></textarea>
+            <div>
+                <span asp-validation-for="Worker.Biography" style="color: #d9534f;"></span>
+            </div>
+        </div>
+        <div class="form-group" style="margin-bottom:5rem">
+            <input type="submit" value="დამატება" />
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script src="/js/ckeditor/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace("editor")
+        let form = document.getElementById("newsform");
+        form.addEventListener("submit", e => {
+            let inst = CKEDITOR.instances.editor;
+            form.innerHTML = inst.getData();
+        })
+    </script>
+}

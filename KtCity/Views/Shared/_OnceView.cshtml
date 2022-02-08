@@ -1,0 +1,32 @@
+﻿@using System.Globalization
+@model NewsItem
+
+<div class="mainContainer shadows">
+    <div class="container">
+        <div class="container_alone">
+            <div class="container_alone-header">
+                <div class="container_alone-img">
+                    <img src="/img/@(Model.Image??ConfigClass.NoImage)" alt="" />
+                </div>
+                <h3 class="container_alone-title">
+                    @Model.Title
+                </h3>
+                <span>@(DateTime.Parse(Model.PostedDate).ToString("d",new CultureInfo("de-DE")))</span>
+            </div>
+            <div class="container_alone-text">
+                @Html.Raw(Model.Text)
+            </div>
+            @if (Model.AttachFiles.Count > 0)
+            {
+                foreach (var t in Model.AttachFiles)
+                {
+                    <div>
+                        <a style="font-size:0.4rem"
+                           href="~/@($"{ConfigClass.FileFolder}/{t.FileName}")"
+                           target="_blank">თანდართული ფაილები</a>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
